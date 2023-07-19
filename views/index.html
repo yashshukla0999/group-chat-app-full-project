@@ -311,35 +311,90 @@
                     <span class="m--in">Sign In</span>
                 </div>
             </div>
+            <form action="signUp" method="POST" id="signUpForm">
             <div class="form sign-up">
                 <h2>Create your Account</h2>
                 <label>
                     <span>Name</span>
-                    <input type="text" />
+                    <input type="text" id="name"/>
                 </label>
                 <label>
                     <span>Email</span>
-                    <input type="email" />
+                    <input type="email" id="email" />
                 </label>
                 <label>
                       <label>
                     <span>Phone number</span>
-                    <input type="number" />
+                    <input type="number" id="phone"/>
                 </label>
                 <label>
                     <span>Password</span>
-                    <input type="password" />
+                    <input type="password" id="password" />
                 </label>
-                <button type="button" class="submit">Sign Up</button>
+                <button type="submit" class="submit" >Sign Up</button>
 
             </div>
+        </form>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
 
     <script>
         document.querySelector('.img__btn').addEventListener('click', function() {
             document.querySelector('.cont').classList.toggle('s--signup');
         });
+
+
+
+        let signUpForm = document.getElementById('signUpForm')
+			signUpForm.addEventListener('submit', upForm)
+
+			async function upForm(event) {
+				event.preventDefault();
+				let name = document.getElementById('name').value;
+				let email = document.getElementById('email').value;
+                let phone =document.getElementById('phone').value;
+				let password = document.getElementById('password').value;
+
+				let obj = {
+					name: name,
+					email: email,
+                    phone:phone,
+					password: password
+				};
+
+				try {
+					const response = await axios.post("http://localhost:8000/signUp", obj);
+					console.log(response.data);
+		// 			console.log(response.data);
+
+					if (response.data.message === 'User already exists') {
+            window.alert('User already exists, Please Login');
+        } else {
+            window.alert('Successfully signed up');
+        }
+        
+
+				}
+				catch (error) {
+					console.log(error);
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </script>
 </body>
 
