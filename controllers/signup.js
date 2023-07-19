@@ -8,7 +8,7 @@ const showForm = (req, resp) => {
     resp.sendFile(path.join(__dirname, '../views/index.html'));
   }
 
- const postUser = (req, resp) => {
+ const postUser = async (req, resp) => {
     const userName = req.body.name;
     const userEmail = req.body.email;
     const userPhone = req.body.phone
@@ -19,15 +19,26 @@ const showForm = (req, resp) => {
         || userPassword.length === 0 || userPassword == undefined ||userPhone==undefined||userPhone.length===0) {
         return resp.status(400).json({ err: "bad parameters" })
       }
+      const user = await User.findOne({
+        where: {
+          email: userEmail
+        }
+      });
+  
+      if (user) {
+        return resp.status(202).json({ massage: "email already register" });
+      }
+  
+
       bcrypt.hash(userPassword, 10, async (err, hash) => {
-        console.log(hash)
+        console.log(err)
         await User.create({
           name: userName,
           email: userEmail,
           phone:userPhone,
           password: hash
         })
-        resp.status(201).json({ massage: 'user created successfully',succes:'true' });
+        resp.status(201).json({ massage: 'user created successfully' });
   
       })
     }

@@ -429,8 +429,8 @@ switchers.forEach(item => {
 					console.log(response.data);
 		// 			console.log(response.data);
 
-					if (response.data.message === 'User already exists') {
-            window.alert('User already exists, Please Login');
+					if (response.data.massage === 'email already register') {
+                      window.alert('User already exists, Please Login');
         } else {
             window.alert('Successfully signed up');
         }
@@ -439,6 +439,7 @@ switchers.forEach(item => {
 				}
 				catch (error) {
 					console.log(error);
+
 				}
 			}
 

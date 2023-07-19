@@ -6,7 +6,10 @@ const sequelize = require('./util/database');
 
 const signupRoutes = require('./routes/index');
 
-app.use(cors());
+app.use(cors({
+    origin:'*'
+    
+}));
 app.use(bodyParser.json({ extended: false }));
 app.use(signupRoutes);
 
