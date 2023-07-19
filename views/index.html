@@ -347,16 +347,16 @@
                     Login
                     <span class="underline"></span>
                 </button>
-                <form class="form form-login">
+                <form class="form form-login" id="LoginForm">
                     <fieldset>
                         <legend>Please enter your email and password for login.</legend>
                         <div class="input-block">
                             <label for="login-email">E-mail</label>
-                            <input id="login-email" type="email" required>
+                            <input id="LoginEmail" type="email" required>
                         </div>
                         <div class="input-block">
                             <label for="login-password">Password</label>
-                            <input id="login-password" type="password" required>
+                            <input id="LoginPassword" type="password" required>
                         </div>
                     </fieldset>
                     <button type="submit" class="btn-login">Login</button>
@@ -444,6 +444,47 @@ switchers.forEach(item => {
 			}
 
 
+
+
+            let LoginForm = document.getElementById('LoginForm');
+			LoginForm.addEventListener('submit', upFormLogin);
+			async function upFormLogin(event) {
+				event.preventDefault();
+
+				let LoginEmail = document.getElementById('LoginEmail').value;
+				let LoginPassword = document.getElementById('LoginPassword').value;
+
+				let obj1 = {
+
+					LoginEmail: LoginEmail,
+					LoginPassword: LoginPassword
+				};
+
+
+
+				try {
+					const response = await axios.post("http://localhost:8000/login", obj1);
+					console.log(response);
+					if (response.status === 200) {
+						alert('User logged in successfully');
+						window.location.href = "../views/afterLogin.html";
+						//localStorage.setItem("token", response.data.token);
+
+
+					}
+				}
+				catch (err) {
+					console.log(err);
+					//document.body.innerHTML+=`${err.massage}`
+				}
+			}
+
+
+
+			// function forgotpassword() {
+			// 	console.log('inside forgot password')
+			// 	window.location.href = "../views/forgot.html";
+			// }
 
 
 
