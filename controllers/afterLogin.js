@@ -13,9 +13,9 @@ const chatMessage = async(req,res)=>{
         const userMessage = req.body.message;
 
 console.log(userMessage)
-       const result =  await req.user.createChat({
+       const result = await Chat.create({
         chat:userMessage,
-        userID:req.user.id
+        //userID:req.user.id
         
        });
         console.log('result'+result)
@@ -31,7 +31,25 @@ console.log(userMessage)
     
 }
 
+const getChatMessage = async (req,res)=>{
 
+    try{
+        //const lastMessageId = parseInt(req.query.lastMessageId) || 0;
+        //console.log("lastMessageID >>>>>>>>>>>>>>>>>>>>" , lastMessageId)
+        //console.log("group id is >>>>",req.query.groupId)
+       // const  groupId = req.query.groupId
+        const userMessage = await Chat.findAll()
+          console.log("User MEssage >>>>>>>>>>>>>>>.",userMessage)
+          res.status(200).json({userMessage : userMessage})
+
+
+
+      }catch(error){
+          console.log(error)
+          res.status(400).json({message : 'Unable to fetch messages'})
+      }
+
+}
 
 
 
@@ -39,5 +57,6 @@ console.log(userMessage)
   
   module.exports={
     showForm,
-    chatMessage
+    chatMessage,
+    getChatMessage
   }

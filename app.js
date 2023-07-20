@@ -19,8 +19,8 @@ app.use(bodyParser.json({ extended: false }));
 app.use(signupRoutes);
 app.use(afterLoginRoutes);
 
-User.hasMany(Chat);
- Chat.belongsTo(User);
+// User.hasMany(Chat);
+//  Chat.belongsTo(User);
 
 
 sequelize.sync()

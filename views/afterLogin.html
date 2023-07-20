@@ -108,6 +108,36 @@ width: 50%;
     //console.log(messageObj.chat)
     chatMessages.appendChild(messageText);
   }
+  window.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('token')
+      // const decodeToken = parseJwt(token);
+      // console.log(decodeToken);
+      
+     
+      axios
+        .get(`http://localhost:8000/send-message`, {
+          headers: { "Authorization": token },
+        })
+       
+        .then((response) => {
+          console.log(response)
+          const userMessage = response.data.userMessage;
+          console.log(userMessage)
+
+          for (let i = 0; i < userMessage.length; i++) {
+            show(userMessage[i]);
+          }
+         
+        })
+        .catch((error) => {
+          document.body.innerHTML =
+            document.body.innerHTML + "<h3> Something Went Wrong </h3>";
+          console.log(error);
+        });
+
+      })
+
+
     </script>
   </body>
 </html>
