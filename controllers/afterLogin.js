@@ -1,5 +1,6 @@
 const path = require('path');
 const Chat =require('../models/chat')
+const User = require('../models/user')
 const Sequelize = require('sequelize')
 
 const showForm = (req, resp) => {
@@ -10,12 +11,12 @@ const showForm = (req, resp) => {
 const chatMessage = async(req,res)=>{
     try{
         console.log("bodyof message is >>>>>>>" ,req.body)
-        const userMessage = req.body.message;
+        const userMessage = req.body.userMessage;
 
 console.log(userMessage)
        const result = await Chat.create({
         chat:userMessage,
-        //userID:req.user.id
+        userId:req.user.id
         
        });
         console.log('result'+result)
@@ -60,3 +61,18 @@ const getChatMessage = async (req,res)=>{
     chatMessage,
     getChatMessage
   }
+
+
+
+
+//   {where:{
+//     // groupId : groupId,
+//     // id:{
+//     //   [Sequelize.Op.gt] : lastMessageId
+//     // },
+//     userId : req.user.id},
+//   include: { 
+//     model: User ,
+//     attributes: ['name']
+//   }
+// }

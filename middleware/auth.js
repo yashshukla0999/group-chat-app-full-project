@@ -6,8 +6,9 @@ exports.authenticate=(req,resp,next)=>{
         const token = req.header('Authorization');
         console.log(token);
         const user = jwt.verify(token,'yashsecretkey')
+        console.log(user);
         console.log('userID>>>>>>',user.userID)
-        User.findByPk(user.userID).then(result => {
+        User.findByPk(user.userID.userID).then(result => {
            console.log(result+'erajngeeeeeeeggggggggggggggggggggg')
             req.user = result;
            

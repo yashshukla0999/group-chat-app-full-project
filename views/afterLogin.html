@@ -74,68 +74,181 @@ width: 50%;
         <br>
         <input class= "btn btn-outline-primary"type="submit" value="Send">
       </form>
-      <ul id="print"></ul>
+      <ul id="chat-messages">
+
+      </ul>
     <script src ="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js" defer></script>
 
     <script>
-     let submit = document.addEventListener('submit', updateForm);
+  //      const token = localStorage.getItem('token')
+  //    let submit = document.addEventListener('submit', updateForm);
  
-    function updateForm(event) {
-      event.preventDefault();
-     let message = document.getElementById('message').value
-      let obj = {
-        message: message
+  //   function updateForm(event) {
+  //     event.preventDefault();
+  //    let message = document.getElementById('message').value
+  //     let obj = {
+  //       message: message
         
-      }
-      const token = localStorage.getItem('token')
-      axios.post("http://localhost:8000/send-message", obj, { headers: { "Authorization": token } })
-        .then((response) => {
-          console.log(token)
-          console.log(response.data.data)
-          show(response.data.data)
+  //     }
+  //     const token = localStorage.getItem('token')
+  //     axios.post("http://localhost:8000/send-message", obj, { headers: { "Authorization": token } })
+  //       .then((response) => {
+  //         console.log(token)
+  //         console.log(response.data.data)
+  //         show(response.data.data)
 
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       })
+  //   }
 
-    function show(messageObj) {
-    const chatMessages = document.getElementById('chat-messages');
+  //   function show(messageObj) {
+  //   const chatMessages = document.getElementById('chat-messages');
 
-    const messageText = document.createElement('li');
-    messageText.textContent = messageObj.chat;
-    //console.log(messageObj.chat)
-    chatMessages.appendChild(messageText);
-  }
-  window.addEventListener('DOMContentLoaded', () => {
-      const token = localStorage.getItem('token')
-      // const decodeToken = parseJwt(token);
-      // console.log(decodeToken);
+  //   const messageText = document.createElement('li');
+  //   messageText.textContent = messageObj.chat;
+  //   console.log(messageObj.chat)
+  //   chatMessages.appendChild(messageText);
+  // }
+ 
+  // window.addEventListener('DOMContentLoaded', () => {
+     
+  //     // const decodeToken = parseJwt(token);
+  //     // console.log(decodeToken);
       
      
-      axios
-        .get(`http://localhost:8000/send-message`, {
-          headers: { "Authorization": token },
-        })
+  //     axios
+  //       .get(`http://localhost:8000/send-message`, {
+  //         headers: { "Authorization": token }
+  //       })
        
-        .then((response) => {
-          console.log(response)
-          const userMessage = response.data.userMessage;
-          console.log(userMessage)
+  //       .then((response) => {
+  //         console.log(response)
+  //         const userMessage = response.data.userMessage;
+  //         console.log(userMessage)
 
-          for (let i = 0; i < userMessage.length; i++) {
-            show(userMessage[i]);
-          }
+  //         for (let i = 0; i < userMessage.length; i++) {
+  //           show(userMessage[i]);
+  //         }
          
-        })
-        .catch((error) => {
-          document.body.innerHTML =
-            document.body.innerHTML + "<h3> Something Went Wrong </h3>";
-          console.log(error);
-        });
+  //       })
+  //       .catch((error) => {
+  //         document.body.innerHTML =
+  //           document.body.innerHTML + "<h3> Something Went Wrong </h3>";
+  //         console.log(error);
+  //       });
 
-      })
+  //     })
+
+    
+    let userLogged = document.querySelector("#userLogged");
+let currentGroupInfo = document.querySelector("#currentGroupName");
+let myForm = document.querySelector("#my-form");
+let groupForm = document.querySelector("#groupInfo");
+let message = document.querySelector("#message");
+let chatMessage = document.querySelector("#chat-messages");
+const signOutButton = document.querySelector("#sign-out-button");
+let createGroupName = document.querySelector("#groupName");
+let groupList = document.querySelector("#group-list");
+
+const token = localStorage.getItem("token");
+const name = localStorage.getItem("userName");
+const groupName = localStorage.getItem("groupName");
+const groupId = localStorage.getItem("groupId");
+
+userLogged.innerHTML = userLogged.innerHTML + `${name}`;
+
+// if (groupName != null) {
+//   currentGroupInfo.innerHTML = currentGroupInfo.innerHTML + `${groupName}`;
+// } else {
+//   currentGroupInfo.innerHTML = "Select a Group";
+// }
+
+myForm.addEventListener("submit", saveToStorage);
+//groupForm.addEventListener("submit", createGroup);
+
+async function saveToStorage(e) {
+  e.preventDefault();
+  try {
+    const userMessage = message.value;
+    // const groupName = localStorage.getItem("groupName");
+    // const groupId = localStorage.getItem("groupId");
+
+    const response = await axios.post(
+      `http://localhost:8000/send-message`,
+      { userMessage }, 
+      // , groupId
+      { headers: { Authorization: token } }
+    );
+
+    getChatMessages();
+  } catch (error) {
+    console.log(error);
+    document.body.innerHTML =
+      document.body.innerHTML + "<h3> Something Went Wrong </h3>";
+  }
+  myForm.reset();
+}
+function addChatMessageOnScreen(message) {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = "form-control";
+ // console.log("massage"+message.chat)
+  messageDiv.innerHTML = `<b>${name} : </b> ${message.chat}`;
+  chatMessage.appendChild(messageDiv);
+}
+
+
+async function getChatMessages() {
+  try {
+    let chatMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+   // const groupId = JSON.parse(localStorage.getItem("groupId"));
+
+    let lastMessageId;
+    if (chatMessages.length > 0) {
+      lastMessageId = chatMessages[chatMessages.length - 1].id;
+    } else {
+      lastMessageId = null;
+    }
+    const newMessage = await axios.get(
+      `http://localhost:8000/send-message?lastMessageId=${lastMessageId}&groupId=${groupId}`,
+      { headers: { Authorization: token } }
+    );
+   
+    const newMessages = newMessage.data.userMessage
+    //console.log(newMessages)
+
+    const mergedMessages = [...chatMessages, ...newMessages];
+
+    localStorage.setItem("chatMessages", JSON.stringify(mergedMessages));
+
+    chatMessage.innerHTML = "";
+
+    const filteredMessages = mergedMessages.filter((message) => {
+      return message.groupId === groupId;
+    });
+    //console.log(newMessage)
+
+    for (let i = 0; i < newMessages.length; i++) {
+      addChatMessageOnScreen(newMessages[i]);
+          }
+    // filteredMessages.forEach((message) => {
+    //   console.log(message);
+    //   addChatMessageOnScreen(message);
+    // });
+  } catch (error) {
+    console.log(error);
+    document.body.innerHTML =
+      document.body.innerHTML + "<h3> Something Went Wrong </h3>";
+  }
+}
+window.addEventListener("DOMContentLoaded", () => {
+  getChatMessages();
+  // getGroups();
+  // switchGroup(groupName, groupId);
+});
+
+
 
 
     </script>

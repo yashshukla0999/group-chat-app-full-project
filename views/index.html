@@ -426,7 +426,7 @@ switchers.forEach(item => {
 
 				try {
 					const response = await axios.post("http://localhost:8000/signUp", obj);
-					console.log(response.data);
+					//console.log(response.data);
 		// 			console.log(response.data);
 
 					if (response.data.massage === 'email already register') {
@@ -463,14 +463,17 @@ switchers.forEach(item => {
 
 
 				try {
-					const response = await axios.post("http://localhost:8000/login", obj1);
-					console.log(response);
+					const response= await axios.post("http://localhost:8000/login", obj1);
+					console.log(response.data);
 					if (response.status === 200) {
-						alert('User logged in successfully');
-						window.location.href = "../views/afterLogin.html";
+						
+                        //console.log('yash'+response)
+
+						
 						localStorage.setItem("token", response.data.token);
-
-
+                        localStorage.setItem("userName", response.data.userName);
+                        window.location.href = "../views/afterLogin.html";
+                        alert('User logged in successfully');
 					}
 				}
 				catch (err) {

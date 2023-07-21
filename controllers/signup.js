@@ -54,8 +54,8 @@ const showForm = (req, resp) => {
   
   }
 
-  const generateAccessToken = (id)=>{
-   return jwt.sign({userID:id},'yashsecretkey');
+  const generateAccessToken = (id,name)=>{
+   return jwt.sign({userID:id,userName:name},'yashsecretkey');
   }
 
 
@@ -88,7 +88,7 @@ const showForm = (req, resp) => {
         }
         if(result==true){
          
-        resp.status(200).json({ message: "User logged in successfully",token:generateAccessToken(user.id)});
+        resp.status(200).json({ message: "User logged in successfully",token:generateAccessToken({userID:user.id,userName:user.name}) ,userName:user.name});
         
         }
       });
