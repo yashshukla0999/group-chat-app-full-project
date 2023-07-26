@@ -1,256 +1,647 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Let's Chat</title>
-    <!-- <link rel='stylesheet' type='text/css' media='screen' href='style.css' defer> -->
-    <!-- <script src="./chat.js" defer></script> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" defer>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous" defer></script>
-    <link rel="stylesheet" href="style.css">
-    <style>
-      body{
-  background-image: url(chatBackground.jpg);
-  background-repeat:no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-section{
-margin: 2.5rem auto;
-border-radius: 10px;
-padding: 1rem;
-}
-.sigunUp{
-  font-family: sans-serif;
-  text-align: center;
-  text-decoration: none;
-  padding-top: 0.5rem;
-  opacity: 70%;
-}
-#userLogged {
-width: 50%;
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Let's Chat</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <style>
+    /* Custom styles */
+    
+   /* Custom styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
 }
-    </style>
+
+header {
+  background-color: #007bff;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* ... Your existing styles ... */
+
+/* Redesigned styles */
+/* Improve spacing for group forms and list items */
+.group-form {
+  margin-bottom: 10px;
+}
+
+.group-list-item {
+  margin-bottom: 5px;
+}
+
+/* Create a flexbox layout for the admin section */
+.admin-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Style for the form container */
+.admin-form {
+  flex: 1 1 300px; /* Use flex to create a responsive layout */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+}
+
+/* Style for form labels */
+.form-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Style for form inputs */
+.form-control {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Style for form buttons */
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Add a hover effect to buttons for interactivity */
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Improve chat input layout */
+.chat-input {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  max-width: 800px; /* Increase the max-width for better responsiveness */
+  margin: 0 auto;
+}
+
+/* Style chat input text field */
+.chat-input input[type="text"] {
+  border-radius: 20px;
+  padding: 15px 20px; /* Increase the padding for a more appealing input field */
+  border: 1px solid #ccc;
+  flex: 2; /* Increase the input field size */
+}
+
+/* Style chat input submit button */
+.chat-input input[type="submit"] {
+  border-radius: 8px; /* Reduce button border-radius */
+  padding: 10px 20px; /* Reduce button padding */
+  flex: 1; /* Reduce button size */
+}
+
+/* Customize button colors for primary buttons */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.5);
+}
+
+/* Additional styles and customizations */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.user-info span {
+  font-weight: bold;
+}
+
+/* Style chat window for better readability and scrolling */
+.chat-window {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+/* ... Your existing styles ... */
+
+  </style>
 </head>
-  <body>
-    <header>
-        <h1 class=" sigunUp">Let's Chat</h1>
-    </header>
-    <section id="userInfo" class="container">
-        <span id = "userLogged" class="d-inline form-control">Logged in as : </span>
-        <span id = "currentGroupName" class="d-inline form-control">Current Group: </span>
-        <span id = "sign-out-button" class="btn btn-secondary d-inline float-end ms-2">Sign Out</span>
-        <div id="group-list" class = "btn btn-secondary d-inline float-end ">
-          <span>Groups</span>
-        </div>
-        <br><br>
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-3">
-              <form id="groupInfo" class="form-control" action="/user/createGroup" method="post">
-                <label for="groupName" class="form-label" style="font-weight: 600;">Enter Group Name</label>
-                <input class="form-control" id="groupName" name="groupName" placeholder="Enter group name">
-                <input class="btn btn-outline-primary ms-2 mt-2" type="submit" value="Create Group">
-              </form>
-            </div>
+
+<body>
+  <header>
+    <h1 class="signUp">Let's Chat</h1>
+  </header>
+  <section id="userInfo" class="container">
+    <!-- User Info and Group List -->
+    <div class="user-info">
+      <span id="userLogged">Logged in as: John Doe</span>
+      <span id="currentGroupName">Current Group: General</span>
+      <button id="sign-out-button" class="btn btn-primary">Sign Out</button>
+    </div>
+    <div id="group-list" class="btn btn-primary">
+      <span>Groups</span>
+    </div>
+    <br><br>
+    <div class="container">
+      <div class="row">
+        <!-- Group Creation and Chat Window -->
+        <div class="col-md-4">
+          <!-- Create Group Form -->
+          <form id="groupInfo" class="group-form" action="/createGroup" method="POST">
+            <label for="groupName" class="form-label">Enter Group Name</label>
+            <input class="form-control" id="groupName" name="groupName" placeholder="Enter group name">
+            <input class="btn btn-outline-light mt-2" type="submit" value="Create Group">
+          </form>
+<br><br><br>
+          <!-- Chat Window -->
+          <div class="chat-window">
+            <h3>Chat Messages:</h3><br>
+            <ul id="chat-messages">
+              <!-- Messages will be displayed here -->
+            </ul>
           </div>
         </div>
-        <br>
-        <div id="chat-window" class="col-4">
-            <ul id="chat-messages">
-                <!-- messages will be displayed here -->
-            </ul>
-        </div>
-    </section>
-    <section class="col-10" >
-      <form id="my-form" class="form-control bg-body-tertiary"  action = '/send-message' method="post">
+
+        <!-- Group Administration Section -->
         
-        <label for="message" class = "form-label" style="font-weight: 600;">Enter message :</label> 
-        <input class="form-control" id="message" name ="message" placeholder="Enter your message">
-        
-        <br>
-        <input class= "btn btn-outline-primary"type="submit" value="Send">
+      </div>
+    </div>
+  </section>
+  
+<br><br><br><br>
+  <!-- Chat input section -->
+  <section class="col-md-12 chat-input">
+    <form id="my-form" class="form-control bg-body-tertiary chat-section" action='/send-message' method="post">
+      <input class="form-control" id="message" name="message" placeholder="Enter your message...">
+      <input class="btn btn-primary" type="submit" value="Send">
+    </form>
+  </section>
+ <div class="col-md-8">
+    <div class="admin-section">
+      <!-- Make Group Admin Form -->
+      <form id="makeGroupAdminForm" class="admin-form" action="/makeGroupAdmin" method="POST">
+        <label for="userId" class="form-label">User ID</label>
+        <input class="form-control" id="userId" name="userId" placeholder="Enter user ID">
+        <label for="groupId" class="form-label">Group ID</label>
+        <input class="form-control" id="groupId" name="groupId" placeholder="Enter group ID">
+        <input class="btn btn-outline-light mt-2" type="submit" value="Make Admin">
       </form>
-      <ul id="chat-messages">
 
-      </ul>
-    <script src ="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js" defer></script>
-
-    <script>
-  //      const token = localStorage.getItem('token')
-  //    let submit = document.addEventListener('submit', updateForm);
- 
-  //   function updateForm(event) {
-  //     event.preventDefault();
-  //    let message = document.getElementById('message').value
-  //     let obj = {
-  //       message: message
-        
-  //     }
-  //     const token = localStorage.getItem('token')
-  //     axios.post("http://localhost:8000/send-message", obj, { headers: { "Authorization": token } })
-  //       .then((response) => {
-  //         console.log(token)
-  //         console.log(response.data.data)
-  //         show(response.data.data)
-
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       })
-  //   }
-
-  //   function show(messageObj) {
-  //   const chatMessages = document.getElementById('chat-messages');
-
-  //   const messageText = document.createElement('li');
-  //   messageText.textContent = messageObj.chat;
-  //   console.log(messageObj.chat)
-  //   chatMessages.appendChild(messageText);
-  // }
- 
-  // window.addEventListener('DOMContentLoaded', () => {
      
-  //     // const decodeToken = parseJwt(token);
-  //     // console.log(decodeToken);
+
+      <!-- Check Admin Form -->
+      <form id="checkAdminForm" class="admin-form" action="/checkAdmin" method="GET">
+        <label for="checkUserId" class="form-label">User ID to Check</label>
+        <input class="form-control" id="checkUserId" name="userId" placeholder="Enter user ID">
+        <label for="checkGroupId" class="form-label">Group ID to Check</label>
+        <input class="form-control" id="checkGroupId" name="groupId" placeholder="Enter group ID">
+        <input class="btn btn-outline-light mt-2" type="submit" value="Check Admin">
+      </form>
+
+      <!-- Get Group Admins Form -->
+      <form id="getGroupAdminsForm" class="admin-form" action="/getGroupAdmins" method="GET">
+        <label for="getAdminGroupId" class="form-label">Group ID to Get Admins</label>
+        <input class="form-control" id="getAdminGroupId" name="groupId" placeholder="Enter group ID">
+        <input class="btn btn-outline-light mt-2" type="submit" value="Get Admins">
+      </form>
+
+      <!-- Make New User Admin Form -->
+      <form id="makeNewAdminForm" class="admin-form" action="/makeNewAdmin" method="POST">
+        <label for="newAdminUserId" class="form-label">User ID to Make Admin</label> 
+        <input class="form-control" id="newAdminUserId" name="userId" placeholder="Enter user ID">
+        <input class="btn btn-outline-light mt-2" type="submit" value="Make New Admin">
+      </form>
+
+      <!-- Remove Admin Privileges Form --> 
+       <form id="removeAdminForm" class="admin-form">
+        <label for="removeAdminUserId" class="form-label">User ID to Remove Admin</label>
+        <input class="form-control" id="removeAdminUserId" name="userId" placeholder="Enter user ID">
+        <input class="btn btn-outline-light mt-2" type="submit" value="Remove Admin">
+      </form>
       
-     
-  //     axios
-  //       .get(`http://localhost:8000/send-message`, {
-  //         headers: { "Authorization": token }
-  //       })
-       
-  //       .then((response) => {
-  //         console.log(response)
-  //         const userMessage = response.data.userMessage;
-  //         console.log(userMessage)
+    </div>
+  </div>
 
-  //         for (let i = 0; i < userMessage.length; i++) {
-  //           show(userMessage[i]);
-  //         }
+<!-- 
+  <script src="https://cdn.socket.io/4.4.1/socket.io.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+    <script>
+ -->
+
+<!-- //import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+
+// const socket= io('http://localhost:3000')
+
+// socket.on('connect',()=>{
+//   // addChatMessageOnScreen(`you are connecrted with id: ${socket.id}`
+//   // )
+//   socket.emit('custom-event', { message: 'Hello from the client!' });
+// }) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+<script>
+
+
+
+
+
+
+
+
+
+      const userLogged = document.querySelector("#userLogged");
+      const currentGroupInfo = document.querySelector("#currentGroupName");
+      const myForm = document.querySelector("#my-form");
+      const groupForm = document.querySelector("#groupInfo");
+      const message = document.querySelector("#message");
+      const chatMessage = document.querySelector("#chat-messages");
+      const signOutButton = document.querySelector("#sign-out-button");
+      const createGroupName = document.querySelector("#groupName");
+      const groupList = document.querySelector("#group-list");
+
+      const token = localStorage.getItem("token");
+      const name = localStorage.getItem("userName");
+      const groupName = localStorage.getItem("groupName");
+      const groupId = localStorage.getItem("groupId");
+
+      userLogged.innerHTML = `Logged in as: ${name}`;
+      currentGroupInfo.innerHTML = `Current Group:  ${groupName }`;
+
+      myForm.addEventListener("submit", saveToStorage);
+      groupForm.addEventListener("submit", createGroup);
+
+
+      async function saveToStorage(e) {
+        e.preventDefault();
+        try {
+          const userMessage = message.value;
+          const groupName = localStorage.getItem("groupName");
+          const groupId = localStorage.getItem("groupId");
+          socket.emit('send-message',  {chat:userMessage} );
+          const response = await axios.post(
+            `http://localhost:8000/send-message`,
+            { userMessage, groupId },
+            { headers: { Authorization: token } }
+          );
+
+          console.log('savetolocalstorage');
+          console.log(response.data.data.chat)
+//addChatMessageOnScreen()
+          getChatMessages(groupId);
+        } catch (error) {
+          console.log(error);
+          document.body.innerHTML =
+            document.body.innerHTML + "<h3> Something Went Wrong </h3>";
+        }
+        myForm.reset();
+      }
+      function addChatMessageOnScreen(message) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "form-control";
+        // console.log("massage"+message.chat)
+      messageDiv.innerHTML = `${message}`;
+        messageDiv.innerHTML = `<b>${name} : </b> ${message.chat}`;
+        chatMessage.appendChild(messageDiv);
+      }
+
+
+      async function getChatMessages(groupId) {
+        try {
+          let chatMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+          const groupId = localStorage.getItem("groupId");
+
+          let lastMessageId;
+          if (chatMessages.length > 0) {
+            lastMessageId = chatMessages[chatMessages.length - 1].id;
+          } else {
+            lastMessageId = null;
+          }
+          const newMessage = await axios.get(
+            `http://localhost:8000/send-message?lastMessageId=${lastMessageId}&groupId=${groupId}`,
+            { headers: { Authorization: token } }
+          );
+
+          const newMessages = newMessage.data.userMessage
+          console.log(newMessages)
+
+          const mergedMessages = [...chatMessages, ...newMessages];
+
+          localStorage.setItem("chatMessages", JSON.stringify(mergedMessages));
+
+          chatMessage.innerHTML = "";
+
+          const filteredMessages = mergedMessages.filter((message) => {
+            return message.groupId === groupId;
+          });
+          console.log(newMessage)
+
+          for (let i = 0; i < newMessages.length; i++) {
+            addChatMessageOnScreen(newMessages[i]);
+          }
          
-  //       })
-  //       .catch((error) => {
-  //         document.body.innerHTML =
-  //           document.body.innerHTML + "<h3> Something Went Wrong </h3>";
-  //         console.log(error);
-  //       });
+          // filteredMessages.forEach((message) => {
+          //   console.log(message);
+          //   addChatMessageOnScreen(message);
+          // });
+        } catch (error) {
+          console.log(error);
+          document.body.innerHTML =
+            document.body.innerHTML + "<h3> Something Went Wrong </h3>";
+        }
+      }
+      window.addEventListener("DOMContentLoaded", () => {
+        getChatMessages();
+        getGroups();
+        switchGroup(groupName, groupId);
+        
+      
+      });
 
-  //     })
 
-    
-    let userLogged = document.querySelector("#userLogged");
-let currentGroupInfo = document.querySelector("#currentGroupName");
-let myForm = document.querySelector("#my-form");
-let groupForm = document.querySelector("#groupInfo");
-let message = document.querySelector("#message");
-let chatMessage = document.querySelector("#chat-messages");
-const signOutButton = document.querySelector("#sign-out-button");
-let createGroupName = document.querySelector("#groupName");
-let groupList = document.querySelector("#group-list");
+      signOutButton.addEventListener("click", () => {
+        alert('you want to sign in')
+        localStorage.clear(); // Clear local storage to log the user out
+        window.location.href = "../views/index.html"; // Redirect to the sign-in page
+      });
 
-const token = localStorage.getItem("token");
-const name = localStorage.getItem("userName");
-const groupName = localStorage.getItem("groupName");
-const groupId = localStorage.getItem("groupId");
+      async function createGroup(e) {
+        e.preventDefault();
+        try {
+          const groupName = createGroupName.value;
+          console.log(groupName)
 
-userLogged.innerHTML = userLogged.innerHTML + `${name}`;
+          const response = await axios.post(
+            `http://localhost:8000/createGroup`,
+            { groupName },
+            { headers: { Authorization: token } }
+          );
+          console.log(response)
+          console.log('groupNameand id')
+          addGroupToList(response.data.groupName);
 
-// if (groupName != null) {
-//   currentGroupInfo.innerHTML = currentGroupInfo.innerHTML + `${groupName}`;
-// } else {
-//   currentGroupInfo.innerHTML = "Select a Group";
-// }
+          localStorage.setItem("groupName", response.data.groupName);
+          localStorage.setItem("groupId", response.data.id);
 
-myForm.addEventListener("submit", saveToStorage);
-//groupForm.addEventListener("submit", createGroup);
+         
+        } catch (error) {
+          console.log(error);
+          document.body.innerHTML = document.body.innerHTML + "Something went wrong";
+        }
+        groupForm.reset();
+      }
 
-async function saveToStorage(e) {
+      async function getGroups() {
+        try {
+          const response = await axios.get(`http://localhost:8000/getGroup`, {
+            headers: { Authorization: token },
+          });
+          const groups = response.data.groups;
+          console.log('isdide grops')
+          console.log(groups)
+          groups.forEach((group) => {
+            addGroupToList(group);
+          });
+
+          const groupName = localStorage.getItem("groupName");
+          const groupId = localStorage.getItem("groupId");
+          if (groupName && groupId) {
+            getChatMessages(groupName, groupId);
+            currentGroupInfo.innerHTML = 'Current group:  '+groupName;
+          }
+        } catch (error) {
+          console.log(error);
+          document.body.innerHTML = document.body.innerHTML + "Something went wrong";
+        }
+      }
+      async function switchGroup(group, groupId) {
+        try {
+          localStorage.setItem("groupName", group);
+          localStorage.setItem("groupId", groupId);
+          currentGroupInfo.innerHTML = 'Current group:  '+group;
+
+          const response = await axios.get(
+            `http://localhost:8000/getGroupMessages?groupId=${groupId}`,
+            { headers: { Authorization: token } }
+          );
+          console.log(`Chat of particular ${groupName} group is >>>>>>>`, response);
+          const messages = response.data.messages;
+
+          chatMessage.innerHTML = "";
+
+          messages.forEach((message) => {
+            addChatMessageOnScreen(message.chat);
+          });
+        } catch (error) {
+          console.log(error);
+          document.body.innerHTML = document.body.innerHTML + "Something went wrong";
+        }
+      }
+
+      function addGroupToList(group) {
+        console.log('addGrouptoList')
+        console.log(group)
+        const groupDiv = document.createElement("div");
+        groupDiv.className = "group-list-item";
+
+        groupDiv.innerHTML = `<button class = "btn btn-primary m-1" onclick="switchGroup('${group.groupName}','${group.id}')">${group.groupName}</button>`;
+        groupList.appendChild(groupDiv);
+      }
+      const userId = localStorage.getItem("userId");
+  //const groupId = localStorage.getItem("groupId");
+
+  // Function to make a user an admin for a specific group
+  // Function to make a user a group admin
+async function makeGroupAdmin(e) {
   e.preventDefault();
+
   try {
-    const userMessage = message.value;
-    // const groupName = localStorage.getItem("groupName");
-    // const groupId = localStorage.getItem("groupId");
+    const userId = document.querySelector("#userId").value; // Get user ID from the form input
+    const groupId = document.querySelector("#groupId").value; // Get group ID from the form input
+
+    // Set user ID and group ID in localStorage for other functions to access
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("groupId", groupId);
 
     const response = await axios.post(
-      `http://localhost:8000/send-message`,
-      { userMessage }, 
-      // , groupId
+      `http://localhost:8000/makeGroupAdmin`,
+      { userId, groupId },
       { headers: { Authorization: token } }
     );
 
-    getChatMessages();
+    console.log(response);
   } catch (error) {
     console.log(error);
-    document.body.innerHTML =
-      document.body.innerHTML + "<h3> Something Went Wrong </h3>";
   }
-  myForm.reset();
-}
-function addChatMessageOnScreen(message) {
-  const messageDiv = document.createElement("div");
-  messageDiv.className = "form-control";
- // console.log("massage"+message.chat)
-  messageDiv.innerHTML = `<b>${name} : </b> ${message.chat}`;
-  chatMessage.appendChild(messageDiv);
 }
 
 
-async function getChatMessages() {
+  // Function to check if a user is an admin of a specific group
+// Function to check if a user is an admin of a specific group
+async function checkAdmin(e) {
+  e.preventDefault();
+
   try {
-    let chatMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-   // const groupId = JSON.parse(localStorage.getItem("groupId"));
+    const userId = document.querySelector("#checkUserId").value; // Get user ID from the form input
+    const groupId = document.querySelector("#checkGroupId").value; // Get group ID from the form input
 
-    let lastMessageId;
-    if (chatMessages.length > 0) {
-      lastMessageId = chatMessages[chatMessages.length - 1].id;
-    } else {
-      lastMessageId = null;
-    }
-    const newMessage = await axios.get(
-      `http://localhost:8000/send-message?lastMessageId=${lastMessageId}&groupId=${groupId}`,
-      { headers: { Authorization: token } }
-    );
-   
-    const newMessages = newMessage.data.userMessage
-    //console.log(newMessages)
+    // Set checkUserId and checkGroupId in localStorage for other functions to access
+    localStorage.setItem("checkUserId", userId);
+    localStorage.setItem("checkGroupId", groupId);
 
-    const mergedMessages = [...chatMessages, ...newMessages];
-
-    localStorage.setItem("chatMessages", JSON.stringify(mergedMessages));
-
-    chatMessage.innerHTML = "";
-
-    const filteredMessages = mergedMessages.filter((message) => {
-      return message.groupId === groupId;
+    const response = await axios.get(`http://localhost:8000/checkAdmin?userId=${userId}&groupId=${groupId}`, {
+      headers: { Authorization: token },
     });
-    //console.log(newMessage)
 
-    for (let i = 0; i < newMessages.length; i++) {
-      addChatMessageOnScreen(newMessages[i]);
-          }
-    // filteredMessages.forEach((message) => {
-    //   console.log(message);
-    //   addChatMessageOnScreen(message);
-    // });
+    const adminDetailsElement = document.querySelector("#admin-details");
+    adminDetailsElement.textContent = `User is an admin: ${response.data.isAdmin}`;
+
+    console.log(`User is an admin: ${response.data.isAdmin}`);
   } catch (error) {
     console.log(error);
-    document.body.innerHTML =
-      document.body.innerHTML + "<h3> Something Went Wrong </h3>";
   }
 }
-window.addEventListener("DOMContentLoaded", () => {
-  getChatMessages();
-  // getGroups();
-  // switchGroup(groupName, groupId);
-});
+
+
+
+  // Function to get the list of admins for a specific group
+  async function getGroupAdmins(e) {
+  e.preventDefault();
+
+  try {
+    const groupId = localStorage.getItem("getAdminGroupId"); // Get getAdminGroupId from localStorage
+
+    const response = await axios.get(`http://localhost:8000/getGroupAdmins?groupId=${groupId}`, {
+      headers: { Authorization: token },
+    });
+
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+  // Function to make a new user a global admin
+  async function makeNewAdmin(e) {
+  e.preventDefault();
+
+  try {
+    const userId = localStorage.getItem("newAdminUserId"); // Get newAdminUserId from localStorage
+
+    const response = await axios.post(
+      `http://localhost:8000/makeNewAdmin`,
+      { userId },
+      { headers: { Authorization: token } }
+    );
+
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+  // Function to remove admin privileges from a user globally
+  async function removeAdmin(e) {
+    e.preventDefault();
+
+    try {
+      const userId = document.querySelector("#removeAdminUserId").value; // Updated: Added #removeAdminUserId element in your HTML
+
+      const response = await axios.post(
+        `http://localhost:8000/removeAdmin`,
+        { userId },
+        { headers: { Authorization: token } }
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // Function to remove a member from a group
+  async function removeAdmin(e) {
+  e.preventDefault();
+
+  try {
+    const userId = document.querySelector("#removeAdminUserId").value; // Get user ID from the form input
+
+    // Set removeAdminUserId in localStorage for other functions to access
+    localStorage.setItem("removeAdminUserId", userId);
+
+    const response = await axios.post(
+      `http://localhost:8000/removeAdmin`,
+      { userId },
+      { headers: { Authorization: token } }
+    );
+
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+  // Handle the form submissions
+  document.querySelector("#makeGroupAdminForm").addEventListener("submit", makeGroupAdmin);
+  document.querySelector("#checkAdminForm").addEventListener("submit", checkAdmin);
+  document.querySelector("#getGroupAdminsForm").addEventListener("submit", getGroupAdmins);
+  document.querySelector("#makeNewAdminForm").addEventListener("submit", makeNewAdmin);
+  document.querySelector("#removeAdminForm").addEventListener("submit", removeAdmin);
+
+ 
+
+//   // ... Other existing JavaScript code ...
 
 
 
 
     </script>
-  </body>
+</body>
+
 </html>
