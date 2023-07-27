@@ -23,6 +23,7 @@ app.use(cors({
     origin:'*'
     
 }));
+app.use('/verifiedUser', msgRoutes)
 const fileupload=require('express-fileupload');
 console.log('insideeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee socetttttttttttttttttttttttttttttttttttttttttttt')
 io.on('connection', socket=>{
