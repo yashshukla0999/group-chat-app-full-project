@@ -23,7 +23,7 @@ app.use(cors({
     origin:'*'
     
 }));
-
+const fileupload=require('express-fileupload');
 console.log('insideeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee socetttttttttttttttttttttttttttttttttttttttttttt')
 io.on('connection', socket=>{
     
